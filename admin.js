@@ -84,46 +84,234 @@ function loadData() {
                 email: 'support@flinthub.org',
                 notes: 'Comprehensive community resources and referrals.'
             },
-            // ICE Sightings around major cities (offset to avoid overlapping with service providers)
+            // Partner Organizations
             {
-                id: 6,
-                name: 'ICE Sighting - Detroit',
+                id: 51,
+                name: 'Michigan Immigrant Rights Center',
+                serviceType: 'Legal Assistance',
+                lat: 42.2808,
+                lng: -83.7500,
+                address: '111 N Main St, Ann Arbor, MI 48104',
+                phone: '(734) 239-6863',
+                email: 'info@michiganimmigrant.org',
+                notes: 'Provides free legal services to immigrants and their families across Michigan.'
+            },
+            {
+                id: 52,
+                name: 'ACLU of Michigan',
+                serviceType: 'Legal Assistance',
+                lat: 42.3314,
+                lng: -83.0520,
+                address: '2966 Woodward Ave, Detroit, MI 48201',
+                phone: '(313) 578-6800',
+                email: 'info@aclumich.org',
+                notes: 'Fights for civil liberties and immigrant rights through litigation and advocacy.'
+            },
+            {
+                id: 53,
+                name: 'Detroit Hispanic Development Corporation',
+                serviceType: 'Community Support',
+                lat: 42.3200,
+                lng: -83.0800,
+                address: '1211 Trumbull St, Detroit, MI 48216',
+                phone: '(313) 841-7436',
+                email: 'info@dhdcorp.org',
+                notes: 'Community organization providing support services to Latino families in Detroit.'
+            },
+            {
+                id: 54,
+                name: 'One Michigan for Immigrant Rights',
                 serviceType: 'Crisis Response',
+                lat: 42.3314,
+                lng: -83.0458,
+                address: 'Detroit, MI',
+                phone: '(313) 555-6000',
+                email: 'info@onemichigan.org',
+                notes: 'Grassroots organization working to protect immigrant communities and provide rapid response.'
+            },
+            {
+                id: 55,
+                name: 'Grand Rapids Area Mutual Aid Network',
+                serviceType: 'Community Support',
+                lat: 42.9634,
+                lng: -85.6681,
+                address: 'Grand Rapids, MI',
+                phone: '(616) 555-6100',
+                email: 'info@grmutualaid.org',
+                notes: 'Community mutual aid network providing support and resources to vulnerable communities.'
+            },
+            {
+                id: 56,
+                name: 'Lansing Area Rapid Response Network',
+                serviceType: 'Crisis Response',
+                lat: 42.7325,
+                lng: -84.5555,
+                address: 'Lansing, MI',
+                phone: '(517) 555-6200',
+                email: 'response@lansingnetwork.org',
+                notes: 'Local rapid response network coordinating community support and emergency assistance.'
+            },
+            {
+                id: 57,
+                name: 'Michigan United',
+                serviceType: 'Community Support',
+                lat: 42.3314,
+                lng: -83.0458,
+                address: 'Detroit, MI',
+                phone: '(313) 555-6300',
+                email: 'info@michiganunited.org',
+                notes: 'Statewide organization working for immigrant rights, economic justice, and community organizing.'
+            },
+            {
+                id: 58,
+                name: 'Washtenaw Interfaith Coalition for Immigrant Rights',
+                serviceType: 'Community Support',
+                lat: 42.2808,
+                lng: -83.7430,
+                address: 'Ann Arbor, MI',
+                phone: '(734) 555-6400',
+                email: 'info@wicir.org',
+                notes: 'Interfaith coalition providing support and advocacy for immigrant families in Washtenaw County.'
+            },
+            {
+                id: 59,
+                name: 'Detroit Justice Center',
+                serviceType: 'Legal Assistance',
+                lat: 42.3314,
+                lng: -83.0500,
+                address: 'Detroit, MI',
+                phone: '(313) 555-6500',
+                email: 'info@detroitjustice.org',
+                notes: 'Legal services organization focused on community justice and supporting marginalized communities.'
+            },
+            {
+                id: 60,
+                name: 'Kalamazoo Immigrant Rights Coalition',
+                serviceType: 'Crisis Response',
+                lat: 42.2917,
+                lng: -85.5872,
+                address: 'Kalamazoo, MI',
+                phone: '(269) 555-6600',
+                email: 'info@kazooimmigrantrights.org',
+                notes: 'Coalition working to protect and support immigrant communities in Kalamazoo.'
+            },
+            {
+                id: 61,
+                name: 'Flint Immigration Network',
+                serviceType: 'Community Support',
+                lat: 43.0125,
+                lng: -83.6875,
+                address: 'Flint, MI',
+                phone: '(810) 555-6700',
+                email: 'info@flintimmigration.org',
+                notes: 'Local network providing resources and support to immigrant families in Flint.'
+            },
+            {
+                id: 62,
+                name: 'Saginaw Valley Community Support',
+                serviceType: 'Community Support',
+                lat: 43.4195,
+                lng: -83.9508,
+                address: 'Saginaw, MI',
+                phone: '(989) 555-6800',
+                email: 'info@svcommunity.org',
+                notes: 'Community organization offering support services and resources to families in need.'
+            },
+            {
+                id: 63,
+                name: 'West Michigan Legal Services',
+                serviceType: 'Legal Assistance',
+                lat: 42.9634,
+                lng: -85.6750,
+                address: 'Grand Rapids, MI',
+                phone: '(616) 555-6900',
+                email: 'legal@westmichigan.org',
+                notes: 'Legal aid organization providing free legal services to low-income and immigrant communities.'
+            },
+            {
+                id: 64,
+                name: 'Metro Detroit Mutual Aid',
+                serviceType: 'Community Support',
                 lat: 42.3380,
                 lng: -83.0520,
-                address: 'Downtown Detroit Area',
-                phone: '(313) 555-9999',
-                email: 'report@example.org',
-                notes: 'ICE activity reported in downtown Detroit area.',
-                isIceCamp: true
+                address: 'Detroit Metro Area',
+                phone: '(313) 555-7000',
+                email: 'info@metrodetroitmutualaid.org',
+                notes: 'Mutual aid network providing emergency support and resources across Metro Detroit.'
             },
             {
-                id: 7,
-                name: 'ICE Sighting - Grand Rapids',
-                serviceType: 'Crisis Response',
-                lat: 42.9700,
-                lng: -85.6750,
-                address: 'Grand Rapids Metro Area',
-                phone: '(616) 555-9999',
-                email: 'report@example.org',
-                notes: 'ICE activity reported in Grand Rapids area.',
-                isIceCamp: true
+                id: 65,
+                name: 'Michigan Faith in Action',
+                serviceType: 'Community Support',
+                lat: 42.7325,
+                lng: -84.5620,
+                address: 'Lansing, MI',
+                phone: '(517) 555-7100',
+                email: 'info@mifia.org',
+                notes: 'Faith-based organization working for social justice and supporting immigrant communities.'
             },
             {
-                id: 8,
-                name: 'ICE Sighting - Ann Arbor',
+                id: 66,
+                name: 'Detroit Community Health Center',
+                serviceType: 'Healthcare',
+                lat: 42.3314,
+                lng: -83.0480,
+                address: 'Detroit, MI',
+                phone: '(313) 555-7200',
+                email: 'health@detroitcommunity.org',
+                notes: 'Community health center providing healthcare services regardless of immigration status.'
+            },
+            {
+                id: 67,
+                name: 'Ann Arbor Sanctuary Network',
                 serviceType: 'Crisis Response',
                 lat: 42.2880,
                 lng: -83.7500,
-                address: 'Ann Arbor Area',
-                phone: '(734) 555-9999',
-                email: 'report@example.org',
-                notes: 'ICE activity reported in Ann Arbor area.',
-                isIceCamp: true
+                address: 'Ann Arbor, MI',
+                phone: '(734) 555-7300',
+                email: 'info@a2sanctuary.org',
+                notes: 'Sanctuary network providing safe spaces and support for immigrant families.'
             },
             {
-                id: 9,
-                name: 'ICE Sighting - Lansing',
+                id: 68,
+                name: 'Grand Rapids Legal Aid Society',
+                serviceType: 'Legal Assistance',
+                lat: 42.9700,
+                lng: -85.6750,
+                address: 'Grand Rapids, MI',
+                phone: '(616) 555-7400',
+                email: 'info@grlegalaid.org',
+                notes: 'Legal aid organization providing free legal services to low-income residents.'
+            },
+            {
+                id: 69,
+                name: 'Michigan Coalition for Immigrant Rights',
+                serviceType: 'Community Support',
+                lat: 42.7325,
+                lng: -84.5555,
+                address: 'Lansing, MI',
+                phone: '(517) 555-7500',
+                email: 'info@michiganimmigrantcoalition.org',
+                notes: 'Statewide coalition coordinating immigrant rights advocacy and support services.'
+            },
+            {
+                id: 70,
+                name: 'Detroit Workers Rights Center',
+                serviceType: 'Legal Assistance',
+                lat: 42.3314,
+                lng: -83.0460,
+                address: 'Detroit, MI',
+                phone: '(313) 555-7600',
+                email: 'info@detroitworkers.org',
+                notes: 'Organization fighting for workers rights and providing legal support to immigrant workers.'
+            }
+        ];
+        saveData();
+    }
+}
+
+// Save data to localStorage
+function saveData() {
                 serviceType: 'Crisis Response',
                 lat: 42.7400,
                 lng: -84.5620,
@@ -655,10 +843,9 @@ function renderTable() {
     mapData.forEach(entry => {
         const row = document.createElement('tr');
         row.className = 'hover:bg-gray-50 fade-in';
-        const iceCampBadge = entry.isIceCamp ? '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 ml-2">⚠️ ICE Camp</span>' : '';
         row.innerHTML = `
             <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">${entry.name}${iceCampBadge}</div>
+                <div class="text-sm font-medium text-gray-900">${entry.name}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
@@ -697,7 +884,6 @@ function openAddModal() {
     editingId = null;
     document.getElementById('modalTitle').textContent = 'Add New Entry';
     document.getElementById('entryForm').reset();
-    document.getElementById('entryIceCamp').checked = false;
     
     // Reset lat/lng fields to readonly (will be filled from address)
     document.getElementById('entryLat').readOnly = true;
@@ -724,7 +910,6 @@ function editEntry(id) {
     document.getElementById('entryPhone').value = entry.phone;
     document.getElementById('entryEmail').value = entry.email;
     document.getElementById('entryNotes').value = entry.notes || '';
-    document.getElementById('entryIceCamp').checked = entry.isIceCamp === true;
     
     // When editing, allow manual coordinate editing
     document.getElementById('entryLat').readOnly = false;
@@ -845,7 +1030,6 @@ async function handleSubmit(e) {
         phone: document.getElementById('entryPhone').value.trim(),
         email: document.getElementById('entryEmail').value.trim(),
         notes: document.getElementById('entryNotes').value.trim(),
-        isIceCamp: document.getElementById('entryIceCamp').checked
     };
 
     // Validation (serviceType is now optional)

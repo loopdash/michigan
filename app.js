@@ -9,7 +9,6 @@ let markers = [];
 let currentMarkers = [];
 let isAddingLocation = false;
 let tempMarker = null;
-let showIceCamps = true; // Show ICE camps by default
 
 // Sample data - in production this would come from a database
 let mapData = [
@@ -68,546 +67,226 @@ let mapData = [
         email: 'support@flinthub.org',
         notes: 'Comprehensive community resources and referrals.'
     },
-    // ICE Sightings around major cities (offset to avoid overlapping with service providers)
+    // Partner Organizations
     {
-        id: 6,
-        name: 'ICE Sighting - Detroit',
-        serviceType: 'Crisis Response',
-        lat: 42.3380,
-        lng: -83.0520,
-        address: 'Downtown Detroit Area',
-        phone: '(313) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in downtown Detroit area.',
-        isIceCamp: true
-    },
-    {
-        id: 7,
-        name: 'ICE Sighting - Grand Rapids',
-        serviceType: 'Crisis Response',
-        lat: 42.9700,
-        lng: -85.6750,
-        address: 'Grand Rapids Metro Area',
-        phone: '(616) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Grand Rapids area.',
-        isIceCamp: true
-    },
-    {
-        id: 8,
-        name: 'ICE Sighting - Ann Arbor',
-        serviceType: 'Crisis Response',
-        lat: 42.2880,
+        id: 51,
+        name: 'Michigan Immigrant Rights Center',
+        serviceType: 'Legal Assistance',
+        lat: 42.2808,
         lng: -83.7500,
-        address: 'Ann Arbor Area',
-        phone: '(734) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Ann Arbor area.',
-        isIceCamp: true
+        address: '111 N Main St, Ann Arbor, MI 48104',
+        phone: '(734) 239-6863',
+        email: 'info@michiganimmigrant.org',
+        notes: 'Provides free legal services to immigrants and their families across Michigan.'
     },
     {
-        id: 9,
-        name: 'ICE Sighting - Lansing',
+        id: 52,
+        name: 'ACLU of Michigan',
+        serviceType: 'Legal Assistance',
+        lat: 42.3314,
+        lng: -83.0520,
+        address: '2966 Woodward Ave, Detroit, MI 48201',
+        phone: '(313) 578-6800',
+        email: 'info@aclumich.org',
+        notes: 'Fights for civil liberties and immigrant rights through litigation and advocacy.'
+    },
+    {
+        id: 53,
+        name: 'Detroit Hispanic Development Corporation',
+        serviceType: 'Community Support',
+        lat: 42.3200,
+        lng: -83.0800,
+        address: '1211 Trumbull St, Detroit, MI 48216',
+        phone: '(313) 841-7436',
+        email: 'info@dhdcorp.org',
+        notes: 'Community organization providing support services to Latino families in Detroit.'
+    },
+    {
+        id: 54,
+        name: 'One Michigan for Immigrant Rights',
         serviceType: 'Crisis Response',
-        lat: 42.7400,
-        lng: -84.5620,
-        address: 'Lansing Capital Area',
-        phone: '(517) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Lansing area.',
-        isIceCamp: true
+        lat: 42.3314,
+        lng: -83.0458,
+        address: 'Detroit, MI',
+        phone: '(313) 555-6000',
+        email: 'info@onemichigan.org',
+        notes: 'Grassroots organization working to protect immigrant communities and provide rapid response.'
     },
     {
-        id: 10,
-        name: 'ICE Sighting - Flint',
+        id: 55,
+        name: 'Grand Rapids Area Mutual Aid Network',
+        serviceType: 'Community Support',
+        lat: 42.9634,
+        lng: -85.6681,
+        address: 'Grand Rapids, MI',
+        phone: '(616) 555-6100',
+        email: 'info@grmutualaid.org',
+        notes: 'Community mutual aid network providing support and resources to vulnerable communities.'
+    },
+    {
+        id: 56,
+        name: 'Lansing Area Rapid Response Network',
         serviceType: 'Crisis Response',
-        lat: 43.0200,
-        lng: -83.6950,
-        address: 'Flint Area',
-        phone: '(810) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Flint area.',
-        isIceCamp: true
+        lat: 42.7325,
+        lng: -84.5555,
+        address: 'Lansing, MI',
+        phone: '(517) 555-6200',
+        email: 'response@lansingnetwork.org',
+        notes: 'Local rapid response network coordinating community support and emergency assistance.'
     },
     {
-        id: 11,
-        name: 'ICE Sighting - Kalamazoo',
+        id: 57,
+        name: 'Michigan United',
+        serviceType: 'Community Support',
+        lat: 42.3314,
+        lng: -83.0458,
+        address: 'Detroit, MI',
+        phone: '(313) 555-6300',
+        email: 'info@michiganunited.org',
+        notes: 'Statewide organization working for immigrant rights, economic justice, and community organizing.'
+    },
+    {
+        id: 58,
+        name: 'Washtenaw Interfaith Coalition for Immigrant Rights',
+        serviceType: 'Community Support',
+        lat: 42.2808,
+        lng: -83.7430,
+        address: 'Ann Arbor, MI',
+        phone: '(734) 555-6400',
+        email: 'info@wicir.org',
+        notes: 'Interfaith coalition providing support and advocacy for immigrant families in Washtenaw County.'
+    },
+    {
+        id: 59,
+        name: 'Detroit Justice Center',
+        serviceType: 'Legal Assistance',
+        lat: 42.3314,
+        lng: -83.0500,
+        address: 'Detroit, MI',
+        phone: '(313) 555-6500',
+        email: 'info@detroitjustice.org',
+        notes: 'Legal services organization focused on community justice and supporting marginalized communities.'
+    },
+    {
+        id: 60,
+        name: 'Kalamazoo Immigrant Rights Coalition',
         serviceType: 'Crisis Response',
         lat: 42.2917,
         lng: -85.5872,
-        address: 'Kalamazoo Area',
-        phone: '(269) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Kalamazoo area.',
-        isIceCamp: true
+        address: 'Kalamazoo, MI',
+        phone: '(269) 555-6600',
+        email: 'info@kazooimmigrantrights.org',
+        notes: 'Coalition working to protect and support immigrant communities in Kalamazoo.'
     },
     {
-        id: 12,
-        name: 'ICE Sighting - Saginaw',
-        serviceType: 'Crisis Response',
+        id: 61,
+        name: 'Flint Immigration Network',
+        serviceType: 'Community Support',
+        lat: 43.0125,
+        lng: -83.6875,
+        address: 'Flint, MI',
+        phone: '(810) 555-6700',
+        email: 'info@flintimmigration.org',
+        notes: 'Local network providing resources and support to immigrant families in Flint.'
+    },
+    {
+        id: 62,
+        name: 'Saginaw Valley Community Support',
+        serviceType: 'Community Support',
         lat: 43.4195,
         lng: -83.9508,
-        address: 'Saginaw Area',
-        phone: '(989) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Saginaw area.',
-        isIceCamp: true
+        address: 'Saginaw, MI',
+        phone: '(989) 555-6800',
+        email: 'info@svcommunity.org',
+        notes: 'Community organization offering support services and resources to families in need.'
     },
     {
-        id: 13,
-        name: 'ICE Sighting - Warren',
-        serviceType: 'Crisis Response',
-        lat: 42.5145,
-        lng: -83.0147,
-        address: 'Warren Area',
-        phone: '(586) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Warren area.',
-        isIceCamp: true
+        id: 63,
+        name: 'West Michigan Legal Services',
+        serviceType: 'Legal Assistance',
+        lat: 42.9634,
+        lng: -85.6750,
+        address: 'Grand Rapids, MI',
+        phone: '(616) 555-6900',
+        email: 'legal@westmichigan.org',
+        notes: 'Legal aid organization providing free legal services to low-income and immigrant communities.'
     },
     {
-        id: 14,
-        name: 'ICE Sighting - Sterling Heights',
-        serviceType: 'Crisis Response',
-        lat: 42.5803,
-        lng: -83.0302,
-        address: 'Sterling Heights Area',
-        phone: '(586) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Sterling Heights area.',
-        isIceCamp: true
+        id: 64,
+        name: 'Metro Detroit Mutual Aid',
+        serviceType: 'Community Support',
+        lat: 42.3380,
+        lng: -83.0520,
+        address: 'Detroit Metro Area',
+        phone: '(313) 555-7000',
+        email: 'info@metrodetroitmutualaid.org',
+        notes: 'Mutual aid network providing emergency support and resources across Metro Detroit.'
     },
     {
-        id: 15,
-        name: 'ICE Sighting - Troy',
-        serviceType: 'Crisis Response',
-        lat: 42.6056,
-        lng: -83.1499,
-        address: 'Troy Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Troy area.',
-        isIceCamp: true
+        id: 65,
+        name: 'Michigan Faith in Action',
+        serviceType: 'Community Support',
+        lat: 42.7325,
+        lng: -84.5620,
+        address: 'Lansing, MI',
+        phone: '(517) 555-7100',
+        email: 'info@mifia.org',
+        notes: 'Faith-based organization working for social justice and supporting immigrant communities.'
     },
     {
-        id: 16,
-        name: 'ICE Sighting - Battle Creek',
-        serviceType: 'Crisis Response',
-        lat: 42.3212,
-        lng: -85.1797,
-        address: 'Battle Creek Area',
-        phone: '(269) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Battle Creek area.',
-        isIceCamp: true
+        id: 66,
+        name: 'Detroit Community Health Center',
+        serviceType: 'Healthcare',
+        lat: 42.3314,
+        lng: -83.0480,
+        address: 'Detroit, MI',
+        phone: '(313) 555-7200',
+        email: 'health@detroitcommunity.org',
+        notes: 'Community health center providing healthcare services regardless of immigration status.'
     },
     {
-        id: 17,
-        name: 'ICE Sighting - Muskegon',
+        id: 67,
+        name: 'Ann Arbor Sanctuary Network',
         serviceType: 'Crisis Response',
-        lat: 43.2342,
-        lng: -86.2484,
-        address: 'Muskegon Area',
-        phone: '(231) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Muskegon area.',
-        isIceCamp: true
+        lat: 42.2880,
+        lng: -83.7500,
+        address: 'Ann Arbor, MI',
+        phone: '(734) 555-7300',
+        email: 'info@a2sanctuary.org',
+        notes: 'Sanctuary network providing safe spaces and support for immigrant families.'
     },
     {
-        id: 18,
-        name: 'ICE Sighting - Bay City',
-        serviceType: 'Crisis Response',
-        lat: 43.5945,
-        lng: -83.8889,
-        address: 'Bay City Area',
-        phone: '(989) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Bay City area.',
-        isIceCamp: true
+        id: 68,
+        name: 'Grand Rapids Legal Aid Society',
+        serviceType: 'Legal Assistance',
+        lat: 42.9700,
+        lng: -85.6750,
+        address: 'Grand Rapids, MI',
+        phone: '(616) 555-7400',
+        email: 'info@grlegalaid.org',
+        notes: 'Legal aid organization providing free legal services to low-income residents.'
     },
     {
-        id: 19,
-        name: 'ICE Sighting - Jackson',
-        serviceType: 'Crisis Response',
-        lat: 42.2459,
-        lng: -84.4014,
-        address: 'Jackson Area',
-        phone: '(517) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Jackson area.',
-        isIceCamp: true
+        id: 69,
+        name: 'Michigan Coalition for Immigrant Rights',
+        serviceType: 'Community Support',
+        lat: 42.7325,
+        lng: -84.5555,
+        address: 'Lansing, MI',
+        phone: '(517) 555-7500',
+        email: 'info@michiganimmigrantcoalition.org',
+        notes: 'Statewide coalition coordinating immigrant rights advocacy and support services.'
     },
     {
-        id: 20,
-        name: 'ICE Sighting - Holland',
-        serviceType: 'Crisis Response',
-        lat: 42.7875,
-        lng: -86.1089,
-        address: 'Holland Area',
-        phone: '(616) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Holland area.',
-        isIceCamp: true
-    },
-    {
-        id: 21,
-        name: 'ICE Sighting - Dearborn',
-        serviceType: 'Crisis Response',
-        lat: 42.3223,
-        lng: -83.1763,
-        address: 'Dearborn Area',
-        phone: '(313) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Dearborn area.',
-        isIceCamp: true
-    },
-    {
-        id: 22,
-        name: 'ICE Sighting - Livonia',
-        serviceType: 'Crisis Response',
-        lat: 42.3684,
-        lng: -83.3527,
-        address: 'Livonia Area',
-        phone: '(734) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Livonia area.',
-        isIceCamp: true
-    },
-    {
-        id: 23,
-        name: 'ICE Sighting - Southfield',
-        serviceType: 'Crisis Response',
-        lat: 42.4734,
-        lng: -83.2215,
-        address: 'Southfield Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Southfield area.',
-        isIceCamp: true
-    },
-    {
-        id: 24,
-        name: 'ICE Sighting - Pontiac',
-        serviceType: 'Crisis Response',
-        lat: 42.6389,
-        lng: -83.2910,
-        address: 'Pontiac Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Pontiac area.',
-        isIceCamp: true
-    },
-    {
-        id: 25,
-        name: 'ICE Sighting - Taylor',
-        serviceType: 'Crisis Response',
-        lat: 42.2409,
-        lng: -83.2696,
-        address: 'Taylor Area',
-        phone: '(734) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Taylor area.',
-        isIceCamp: true
-    },
-    {
-        id: 26,
-        name: 'ICE Sighting - St. Clair Shores',
-        serviceType: 'Crisis Response',
-        lat: 42.4970,
-        lng: -82.8888,
-        address: 'St. Clair Shores Area',
-        phone: '(586) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in St. Clair Shores area.',
-        isIceCamp: true
-    },
-    {
-        id: 27,
-        name: 'ICE Sighting - Wyoming',
-        serviceType: 'Crisis Response',
-        lat: 42.9134,
-        lng: -85.7053,
-        address: 'Wyoming Area',
-        phone: '(616) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Wyoming area.',
-        isIceCamp: true
-    },
-    {
-        id: 28,
-        name: 'ICE Sighting - Rochester Hills',
-        serviceType: 'Crisis Response',
-        lat: 42.6584,
-        lng: -83.1499,
-        address: 'Rochester Hills Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Rochester Hills area.',
-        isIceCamp: true
-    },
-    {
-        id: 29,
-        name: 'ICE Sighting - Westland',
-        serviceType: 'Crisis Response',
-        lat: 42.3242,
-        lng: -83.4002,
-        address: 'Westland Area',
-        phone: '(734) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Westland area.',
-        isIceCamp: true
-    },
-    {
-        id: 30,
-        name: 'ICE Sighting - Farmington Hills',
-        serviceType: 'Crisis Response',
-        lat: 42.4986,
-        lng: -83.3677,
-        address: 'Farmington Hills Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Farmington Hills area.',
-        isIceCamp: true
-    },
-    {
-        id: 31,
-        name: 'ICE Sighting - Portage',
-        serviceType: 'Crisis Response',
-        lat: 42.2012,
-        lng: -85.5800,
-        address: 'Portage Area',
-        phone: '(269) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Portage area.',
-        isIceCamp: true
-    },
-    {
-        id: 32,
-        name: 'ICE Sighting - Novi',
-        serviceType: 'Crisis Response',
-        lat: 42.4806,
-        lng: -83.4755,
-        address: 'Novi Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Novi area.',
-        isIceCamp: true
-    },
-    {
-        id: 33,
-        name: 'ICE Sighting - Midland',
-        serviceType: 'Crisis Response',
-        lat: 43.6156,
-        lng: -84.2472,
-        address: 'Midland Area',
-        phone: '(989) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Midland area.',
-        isIceCamp: true
-    },
-    {
-        id: 34,
-        name: 'ICE Sighting - Mount Pleasant',
-        serviceType: 'Crisis Response',
-        lat: 43.5978,
-        lng: -84.7675,
-        address: 'Mount Pleasant Area',
-        phone: '(989) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Mount Pleasant area.',
-        isIceCamp: true
-    },
-    {
-        id: 35,
-        name: 'ICE Sighting - East Lansing',
-        serviceType: 'Crisis Response',
-        lat: 42.7370,
-        lng: -84.4839,
-        address: 'East Lansing Area',
-        phone: '(517) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in East Lansing area.',
-        isIceCamp: true
-    },
-    {
-        id: 36,
-        name: 'ICE Sighting - Ypsilanti',
-        serviceType: 'Crisis Response',
-        lat: 42.2411,
-        lng: -83.6129,
-        address: 'Ypsilanti Area',
-        phone: '(734) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Ypsilanti area.',
-        isIceCamp: true
-    },
-    {
-        id: 37,
-        name: 'ICE Sighting - Royal Oak',
-        serviceType: 'Crisis Response',
-        lat: 42.4895,
-        lng: -83.1446,
-        address: 'Royal Oak Area',
-        phone: '(248) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Royal Oak area.',
-        isIceCamp: true
-    },
-    {
-        id: 38,
-        name: 'ICE Sighting - Roseville',
-        serviceType: 'Crisis Response',
-        lat: 42.4973,
-        lng: -82.9371,
-        address: 'Roseville Area',
-        phone: '(586) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Roseville area.',
-        isIceCamp: true
-    },
-    {
-        id: 39,
-        name: 'ICE Sighting - Port Huron',
-        serviceType: 'Crisis Response',
-        lat: 42.9709,
-        lng: -82.4249,
-        address: 'Port Huron Area',
-        phone: '(810) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Port Huron area.',
-        isIceCamp: true
-    },
-    {
-        id: 40,
-        name: 'ICE Sighting - Traverse City',
-        serviceType: 'Crisis Response',
-        lat: 44.7631,
-        lng: -85.6206,
-        address: 'Traverse City Area',
-        phone: '(231) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Traverse City area.',
-        isIceCamp: true
-    },
-    {
-        id: 41,
-        name: 'ICE Sighting - Marquette',
-        serviceType: 'Crisis Response',
-        lat: 46.5435,
-        lng: -87.3954,
-        address: 'Marquette Area',
-        phone: '(906) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Marquette area.',
-        isIceCamp: true
-    },
-    {
-        id: 42,
-        name: 'ICE Sighting - Sault Ste. Marie',
-        serviceType: 'Crisis Response',
-        lat: 46.4953,
-        lng: -84.3453,
-        address: 'Sault Ste. Marie Area',
-        phone: '(906) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Sault Ste. Marie area.',
-        isIceCamp: true
-    },
-    {
-        id: 43,
-        name: 'ICE Sighting - Monroe',
-        serviceType: 'Crisis Response',
-        lat: 41.9164,
-        lng: -83.3977,
-        address: 'Monroe Area',
-        phone: '(734) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Monroe area.',
-        isIceCamp: true
-    },
-    {
-        id: 44,
-        name: 'ICE Sighting - Adrian',
-        serviceType: 'Crisis Response',
-        lat: 41.8976,
-        lng: -84.0372,
-        address: 'Adrian Area',
-        phone: '(517) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Adrian area.',
-        isIceCamp: true
-    },
-    {
-        id: 45,
-        name: 'ICE Sighting - Niles',
-        serviceType: 'Crisis Response',
-        lat: 41.8298,
-        lng: -86.2542,
-        address: 'Niles Area',
-        phone: '(269) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Niles area.',
-        isIceCamp: true
-    },
-    {
-        id: 46,
-        name: 'ICE Sighting - Petoskey',
-        serviceType: 'Crisis Response',
-        lat: 45.3733,
-        lng: -84.9553,
-        address: 'Petoskey Area',
-        phone: '(231) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Petoskey area.',
-        isIceCamp: true
-    },
-    {
-        id: 47,
-        name: 'ICE Sighting - Alpena',
-        serviceType: 'Crisis Response',
-        lat: 45.0617,
-        lng: -83.4328,
-        address: 'Alpena Area',
-        phone: '(989) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Alpena area.',
-        isIceCamp: true
-    },
-    {
-        id: 48,
-        name: 'ICE Sighting - Escanaba',
-        serviceType: 'Crisis Response',
-        lat: 45.7456,
-        lng: -87.0646,
-        address: 'Escanaba Area',
-        phone: '(906) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Escanaba area.',
-        isIceCamp: true
-    },
-    {
-        id: 49,
-        name: 'ICE Sighting - Big Rapids',
-        serviceType: 'Crisis Response',
-        lat: 43.6981,
-        lng: -85.4837,
-        address: 'Big Rapids Area',
-        phone: '(231) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Big Rapids area.',
-        isIceCamp: true
-    },
-    {
-        id: 50,
-        name: 'ICE Sighting - Owosso',
-        serviceType: 'Crisis Response',
-        lat: 42.9978,
-        lng: -84.1766,
-        address: 'Owosso Area',
-        phone: '(989) 555-9999',
-        email: 'report@example.org',
-        notes: 'ICE activity reported in Owosso area.',
-        isIceCamp: true
+        id: 70,
+        name: 'Detroit Workers Rights Center',
+        serviceType: 'Legal Assistance',
+        lat: 42.3314,
+        lng: -83.0460,
+        address: 'Detroit, MI',
+        phone: '(313) 555-7600',
+        email: 'info@detroitworkers.org',
+        notes: 'Organization fighting for workers rights and providing legal support to immigrant workers.'
     }
 ];
 
@@ -877,7 +556,7 @@ function add3DBuildings() {
 }
 
 // Create marker element
-function createMarkerElement(serviceType, isIceCamp = false) {
+function createMarkerElement(serviceType) {
     // Futuristic gray/cyan color scheme
     const colors = {
         'Legal Assistance': '#00d4ff', // Cyan
@@ -890,35 +569,23 @@ function createMarkerElement(serviceType, isIceCamp = false) {
     
     const el = document.createElement('div');
     el.className = 'custom-marker';
-    
-    // If it's an ICE camp, show a warning flag icon
-    if (isIceCamp) {
-        el.innerHTML = `<div style="background: linear-gradient(135deg, #ff0066 0%, #cc0044 100%); width: 26px; height: 26px; border-radius: 4px; border: 2px solid #ffffff; box-shadow: 0 0 10px rgba(255, 0, 102, 0.6), 0 2px 8px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
-            <span style="color: white; font-size: 16px; font-weight: bold; text-shadow: 0 0 5px rgba(255,255,255,0.8);">⚠</span>
-        </div>`;
-        el.className = 'ice-camp-marker';
-    } else {
-        el.style.width = '22px';
-        el.style.height = '22px';
-        el.style.borderRadius = '50%';
-        el.style.background = `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`;
-        el.style.border = '2px solid #ffffff';
-        el.style.boxShadow = `0 0 12px ${color}66, 0 2px 6px rgba(0,0,0,0.4)`;
-        el.style.transition = 'all 0.3s ease';
-    }
+    el.style.width = '22px';
+    el.style.height = '22px';
+    el.style.borderRadius = '50%';
+    el.style.background = `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`;
+    el.style.border = '2px solid #ffffff';
+    el.style.boxShadow = `0 0 12px ${color}66, 0 2px 6px rgba(0,0,0,0.4)`;
+    el.style.transition = 'all 0.3s ease';
+    el.style.transformOrigin = 'center center'; // Scale from center to prevent position shift
     
     // Add hover effect
     el.addEventListener('mouseenter', () => {
-        if (!isIceCamp) {
-            el.style.transform = 'scale(1.3)';
-            el.style.boxShadow = `0 0 20px ${color}99, 0 4px 10px rgba(0,0,0,0.5)`;
-        }
+        el.style.transform = 'scale(1.3)';
+        el.style.boxShadow = `0 0 20px ${color}99, 0 4px 10px rgba(0,0,0,0.5)`;
     });
     el.addEventListener('mouseleave', () => {
-        if (!isIceCamp) {
-            el.style.transform = 'scale(1)';
-            el.style.boxShadow = `0 0 12px ${color}66, 0 2px 6px rgba(0,0,0,0.4)`;
-        }
+        el.style.transform = 'scale(1)';
+        el.style.boxShadow = `0 0 12px ${color}66, 0 2px 6px rgba(0,0,0,0.4)`;
     });
     
     return el;
@@ -932,28 +599,21 @@ function loadMarkers() {
 
     // Add markers
     mapData.forEach(entry => {
-        const isIceCamp = entry.isIceCamp === true;
-        
-        // Skip ICE camps if filter is off
-        if (isIceCamp && !showIceCamps) {
-            return;
-        }
-        
         // Create marker element
-        const el = createMarkerElement(entry.serviceType, isIceCamp);
+        const el = createMarkerElement(entry.serviceType);
         
-        // Create Mapbox marker
-        const marker = new mapboxgl.Marker(el)
+        // Create Mapbox marker with center anchor to prevent position shift on scale
+        const marker = new mapboxgl.Marker({
+            element: el,
+            anchor: 'center' // Anchor at center so scaling doesn't shift position
+        })
             .setLngLat([entry.lng, entry.lat]) // [lng, lat] for Mapbox
             .addTo(map);
-
-        const iceCampWarning = isIceCamp ? '<div class="bg-red-100 border-l-4 border-red-500 p-2 mb-2"><p class="text-sm font-bold text-red-800">⚠️ ICE CAMP</p></div>' : '';
         
         // Create popup
         const popup = new mapboxgl.Popup({ offset: 25 })
             .setHTML(`
                 <div class="popup-content">
-                    ${iceCampWarning}
                     <h3 class="font-bold text-lg mb-2">${entry.name}</h3>
                     <p class="text-sm text-gray-600 mb-2"><strong>Type:</strong> ${entry.serviceType}</p>
                     <p class="text-sm mb-1"><strong>Address:</strong> ${entry.address}</p>
@@ -981,13 +641,9 @@ function showInfoPanel(entry) {
     const title = document.getElementById('infoTitle');
     const content = document.getElementById('infoContent');
 
-    const isIceCamp = entry.isIceCamp === true;
-    const iceCampWarning = isIceCamp ? '<div class="bg-red-100 border-l-4 border-red-500 p-3 mb-3 rounded"><p class="text-sm font-bold text-red-800">⚠️ ICE CAMP</p></div>' : '';
-
     title.textContent = entry.name;
     content.innerHTML = `
         <div class="space-y-2">
-            ${iceCampWarning}
             <p><strong>Service Type:</strong> ${entry.serviceType}</p>
             <p><strong>Address:</strong> ${entry.address}</p>
             <p><strong>Phone:</strong> <a href="tel:${entry.phone}" class="text-blue-600 hover:underline">${entry.phone}</a></p>
@@ -1019,11 +675,10 @@ function filterMarkers() {
             (entry.notes && entry.notes.toLowerCase().includes(searchTerm));
         
         const matchesType = !serviceType || entry.serviceType === serviceType;
-        const matchesIceCampFilter = !entry.isIceCamp || showIceCamps;
 
         // Show or hide marker element
         const markerElement = marker.getElement();
-        if (matchesSearch && matchesType && matchesIceCampFilter) {
+        if (matchesSearch && matchesType) {
             markerElement.style.display = 'block';
         } else {
             markerElement.style.display = 'none';
@@ -1031,19 +686,6 @@ function filterMarkers() {
     });
 }
 
-// Toggle ICE camps visibility
-function toggleIceCamps() {
-    showIceCamps = !showIceCamps;
-    const btn = document.getElementById('toggleIceCampsBtn');
-    btn.textContent = showIceCamps ? 'Hide ICE Camps' : 'Show ICE Camps';
-    btn.className = showIceCamps 
-        ? 'px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition'
-        : 'px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded transition';
-    
-    // Reload markers to apply filter
-    loadMarkers();
-    filterMarkers();
-}
 
 // Populate service type filter
 function populateServiceTypes() {
@@ -1279,7 +921,6 @@ async function handleAddLocationSubmit(e) {
         phone: document.getElementById('locationPhone').value.trim(),
         email: document.getElementById('locationEmail').value.trim(),
         notes: document.getElementById('locationNotes').value.trim(),
-        isIceCamp: document.getElementById('locationIceCamp').checked
     };
     
     // Validation (serviceType is now optional)

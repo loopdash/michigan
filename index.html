@@ -159,7 +159,7 @@
                 Michigan Justice Fund
             </h1>
             <p class="text-lg sm:text-xl mb-8" style="color: var(--color-charcoal-light); max-width: 42rem; margin-left: auto; margin-right: auto;">
-                Tracking rapid response resources and ICE activity across Michigan to protect and support our communities.
+                Connecting communities with essential resources across Michigan—legal assistance, mutual aid, crisis response, healthcare, and more.
             </p>
         </div>
     </section>
@@ -167,10 +167,10 @@
     <!-- Why Section -->
     <section class="prose prose-xl lg:prose-2xl container-narrow px-4">
         <p class="leading-relaxed">
-            <strong>Communities need real-time information.</strong> When ICE activity is reported or when someone needs immediate support, <strong>every minute matters.</strong> Delays mean missed opportunities to help, to warn, to protect.
+            <strong>Communities need real-time access to resources.</strong> When someone needs legal assistance, housing support, healthcare, or emergency help, <strong>every minute matters.</strong> Delays mean missed opportunities to connect people with the services they need.
         </p>
         <p class="leading-relaxed">
-            This map provides a fast, reliable way to track service providers and ICE sightings across Michigan. It's built for organizers, advocates, and community members who need accurate information <strong>right now</strong>—without waiting on complex systems or outdated databases.
+            This map provides a fast, reliable way to find service providers and community resources across Michigan. It's built for organizers, advocates, and community members who need accurate information <strong>right now</strong>—without waiting on complex systems or outdated databases. Whether you're looking for legal aid, mutual aid networks, crisis response teams, or healthcare services, this tool helps you find what you need quickly.
         </p>
     </section>
 
@@ -191,22 +191,25 @@
             
             <!-- Filters and Search -->
             <div class="bg-white border border-gray-200 p-4 rounded-lg" style="box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-1">
-                        <input 
-                            type="text" 
-                            id="searchInput" 
-                            placeholder="Search locations..."
-                            class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
-                        />
-                    </div>
-                    <div class="flex gap-2 flex-wrap">
-                        <select id="serviceTypeFilter" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <div class="flex-1 flex flex-col md:flex-row gap-3">
+                        <div class="flex-1">
+                            <input 
+                                type="text" 
+                                id="searchInput" 
+                                placeholder="Search locations..."
+                                class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
+                            />
+                        </div>
+                        <select id="serviceTypeFilter" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition min-w-[180px]">
                             <option value="">All Service Types</option>
                         </select>
+                    </div>
+                    <div class="flex gap-2 flex-wrap items-center">
                         <button 
                             id="addLocationBtn"
-                            class="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition font-medium text-sm"
+                            class="px-6 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-lg transition font-semibold text-base shadow-md hover:shadow-lg transform hover:scale-105"
+                            style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);"
                         >
                             + Add Location
                         </button>
@@ -274,7 +277,7 @@
                             type="text" 
                             id="locationName" 
                             required
-                            placeholder="e.g., ICE Sighting - Detroit, Service Provider, etc."
+                            placeholder="Detroit, Service Provider, etc."
                             class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
                             style="border-color: var(--color-border);"
                         />
@@ -372,17 +375,6 @@
                         </div>
                     </div>
 
-                    <div>
-                        <label class="flex items-center gap-2 mb-4">
-                            <input 
-                                type="checkbox" 
-                                id="locationIceCamp"
-                                class="w-4 h-4 text-red-600 rounded focus:ring-red-500"
-                                style="border-color: var(--color-border);"
-                            />
-                            <span class="text-sm font-semibold" style="color: #dc2626;">⚠️ Flag as ICE Camp</span>
-                        </label>
-                    </div>
 
                     <div>
                         <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Notes (Optional)</label>
