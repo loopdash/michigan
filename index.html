@@ -8,10 +8,10 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Inter (clean, modern sans-serif) -->
+    <!-- Google Fonts - Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
     
     <!-- Mapbox GL JS CSS -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
@@ -23,54 +23,92 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
     
     <style>
+        :root {
+            --color-border: rgba(18, 18, 18, .06);
+            --color-cream: #f6f6f1;
+            --color-cream-dark: #f3f2eb;
+            --color-charcoal-light: #817B74;
+            --color-charcoal: #262218;
+            --color-green-waterloo: #13110c;
+        }
+        
         * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            box-sizing: border-box;
         }
         
         body {
-            background: #fafafa;
-            color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            background: var(--color-cream);
+            color: var(--color-charcoal);
             font-weight: 400;
             letter-spacing: -0.01em;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         h1, h2, h3, h4, h5, h6 {
-            font-weight: 600;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
             letter-spacing: -0.02em;
             line-height: 1.2;
+            color: var(--color-charcoal);
+        }
+        
+        strong {
+            color: var(--color-charcoal);
+            font-weight: 600;
+        }
+        
+        .prose {
+            color: var(--color-charcoal);
+        }
+        
+        .prose p {
+            margin-bottom: 1.25em;
+            line-height: 1.75;
+        }
+        
+        .prose-xl {
+            font-size: 1.25rem;
+            line-height: 1.875rem;
+            letter-spacing: -0.01em;
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\:prose-2xl {
+                font-size: 1.5rem;
+                line-height: 2.25rem;
+            }
         }
         #map {
-            height: calc(100vh - 80px);
+            height: calc(100vh - 400px);
+            min-height: 600px;
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-        }
-        #mapContainer {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            padding: 10px;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
         }
         .mapboxgl-popup-content {
             padding: 20px;
             background: #ffffff;
-            color: #1a1a1a;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: var(--color-charcoal);
+            border: 1px solid var(--color-border);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             border-radius: 8px;
             font-size: 14px;
+            font-family: 'Source Sans Pro', sans-serif;
         }
         .mapboxgl-popup-content h3 {
-            color: #1a1a1a;
-            font-weight: 600;
+            color: var(--color-charcoal);
+            font-weight: 700;
             margin-bottom: 8px;
         }
         .mapboxgl-popup-content a {
-            color: #2563eb;
+            color: var(--color-green-waterloo);
             text-decoration: none;
         }
         .mapboxgl-popup-content a:hover {
@@ -85,54 +123,122 @@
         /* Clean navigation controls */
         .mapboxgl-ctrl-group {
             background: #ffffff !important;
-            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            border: 1px solid var(--color-border) !important;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
             border-radius: 8px !important;
         }
         .mapboxgl-ctrl-group button {
-            color: #1a1a1a !important;
+            color: var(--color-charcoal) !important;
             width: 32px !important;
             height: 32px !important;
         }
         .mapboxgl-ctrl-group button:hover {
-            background: #f5f5f5 !important;
+            background: var(--color-cream-dark) !important;
         }
         .mapboxgl-ctrl-group button:active {
-            background: #eeeeee !important;
+            background: var(--color-cream) !important;
+        }
+        
+        .container-narrow {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200" style="box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-semibold text-gray-900">Michigan Justice Fund</h1>
-            <div class="flex items-center gap-4">
-                <button id="logoutBtn" class="hidden bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition font-medium">
-                    Logout
-                </button>
-                <a href="admin.html" id="adminLink" class="hidden bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition font-medium">
-                    Admin Panel
-                </a>
+    <!-- Hero Section -->
+    <section class="text-center pb-12 pt-24 px-6">
+        <div class="container-narrow">
+            <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6" style="color: var(--color-charcoal);">
+                Michigan Justice Fund
+            </h1>
+            <p class="text-lg sm:text-xl mb-8" style="color: var(--color-charcoal-light); max-width: 42rem; margin-left: auto; margin-right: auto;">
+                Tracking rapid response resources and ICE activity across Michigan to protect and support our communities.
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="prose prose-xl lg:prose-2xl container-narrow px-4">
+        <p class="leading-relaxed">
+            <strong>Communities need real-time information.</strong> When ICE activity is reported or when someone needs immediate support, <strong>every minute matters.</strong> Delays mean missed opportunities to help, to warn, to protect.
+        </p>
+        <p class="leading-relaxed">
+            This map provides a fast, reliable way to track service providers and ICE sightings across Michigan. It's built for organizers, advocates, and community members who need accurate information <strong>right now</strong>—without waiting on complex systems or outdated databases.
+        </p>
+    </section>
+
+    <!-- Toolbar Section -->
+    <section class="border-t pt-6" style="border-color: var(--color-border);">
+        <div class="container-narrow px-4">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-4">
+                    <button id="logoutBtn" class="hidden bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg transition font-medium text-sm">
+                        Logout
+                    </button>
+                    <a href="admin.html" id="adminLink" class="hidden bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg transition font-medium text-sm">
+                        Admin Panel
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Filters and Search -->
+            <div class="bg-white border border-gray-200 p-4 rounded-lg" style="box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search locations..."
+                            class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
+                        />
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        <select id="serviceTypeFilter" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition">
+                            <option value="">All Service Types</option>
+                        </select>
+                        <button 
+                            id="addLocationBtn"
+                            class="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition font-medium text-sm"
+                        >
+                            + Add Location
+                        </button>
+                        <button 
+                            id="clearFilters"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition font-medium text-sm border border-gray-300"
+                        >
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
+    </section>
 
     <!-- Password Protection Modal -->
     <div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200">
-            <h2 class="text-2xl font-semibold mb-3 text-gray-900">Access Required</h2>
-            <p class="text-gray-600 mb-6">Please enter your password to access the map.</p>
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl border" style="border-color: var(--color-border);">
+            <h2 class="text-2xl font-bold mb-3" style="color: var(--color-charcoal);">Access Required</h2>
+            <p class="mb-6" style="color: var(--color-charcoal-light);">Please enter your password to access the map.</p>
             <input 
                 type="password" 
                 id="passwordInput" 
                 placeholder="Enter password"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                class="w-full px-4 py-2.5 border rounded-lg mb-4 focus:outline-none focus:ring-2 transition"
+                style="border-color: var(--color-border);"
             />
             <div id="passwordError" class="text-red-600 text-sm mb-4 hidden"></div>
             <button 
                 id="passwordSubmit"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg transition font-medium"
+                class="w-full text-white px-4 py-2.5 rounded-lg transition font-semibold"
+                style="background-color: var(--color-green-waterloo);"
             >
                 Access Map
             </button>
@@ -141,78 +247,45 @@
 
     <!-- Main Content -->
     <div id="mainContent" class="hidden">
-        <!-- Filters and Search -->
-        <div class="bg-white border-b border-gray-200 p-4" style="box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);">
-            <div class="flex justify-center">
-                <div class="w-full max-w-[860px] px-4">
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <div class="flex-1">
-                            <input 
-                                type="text" 
-                                id="searchInput" 
-                                placeholder="Search locations..."
-                                class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                            />
-                        </div>
-                        <div class="flex gap-2 flex-wrap">
-                            <select id="serviceTypeFilter" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                                <option value="">All Service Types</option>
-                            </select>
-                            <button 
-                                id="addLocationBtn"
-                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-medium"
-                            >
-                                + Add Location
-                            </button>
-                            <button 
-                                id="clearFilters"
-                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition font-medium border border-gray-300"
-                            >
-                                Clear Filters
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Map Container -->
-        <div id="mapContainer">
+        <section class="pb-0">
             <div id="map"></div>
-        </div>
+        </section>
 
         <!-- Info Panel -->
-        <div id="infoPanel" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white text-gray-900 shadow-xl rounded-lg p-6 max-h-96 overflow-y-auto z-40 border border-gray-200" style="box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);">
+        <div id="infoPanel" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white shadow-xl rounded-lg p-6 max-h-96 overflow-y-auto z-40 border" style="border-color: var(--color-border); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); color: var(--color-charcoal);">
             <div class="flex justify-between items-start mb-2">
-                <h3 id="infoTitle" class="text-xl font-bold"></h3>
-                <button id="closeInfo" class="text-gray-500 hover:text-gray-700">✕</button>
+                <h3 id="infoTitle" class="text-xl font-bold" style="color: var(--color-charcoal);"></h3>
+                <button id="closeInfo" style="color: var(--color-charcoal-light);" class="hover:opacity-70">✕</button>
             </div>
-            <div id="infoContent" class="text-gray-700"></div>
+            <div id="infoContent" style="color: var(--color-charcoal);"></div>
         </div>
 
         <!-- Add Location Modal -->
         <div id="addLocationModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onclick="event.stopPropagation()">
-            <div class="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-                <h2 class="text-2xl font-bold mb-6">Add New Location</h2>
-                <p class="text-gray-600 mb-4 text-sm">Click on the map to set the location, or enter coordinates manually.</p>
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()" style="color: var(--color-charcoal);">
+                <h2 class="text-2xl font-bold mb-6" style="color: var(--color-charcoal);">Add New Location</h2>
+                <p class="mb-4 text-sm" style="color: var(--color-charcoal-light);">Click on the map to set the location, or enter coordinates manually.</p>
                 
                 <form id="addLocationForm" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Location Name *</label>
+                        <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Location Name *</label>
                         <input 
                             type="text" 
                             id="locationName" 
                             required
                             placeholder="e.g., ICE Sighting - Detroit, Service Provider, etc."
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                            style="border-color: var(--color-border);"
                         />
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Service Type (Optional)</label>
+                        <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Service Type (Optional)</label>
                         <select 
                             id="locationServiceType" 
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                            style="border-color: var(--color-border);"
                         >
                             <option value="">Select a service type (optional)</option>
                             <option value="Legal Assistance">Legal Assistance</option>
@@ -227,68 +300,74 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Latitude (Auto-filled from address)</label>
+                            <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Latitude (Auto-filled from address)</label>
                             <input 
                                 type="number" 
                                 id="locationLat" 
                                 step="any"
                                 placeholder="Will be filled from address"
-                                class="w-full px-4 py-2 border border-gray-300 rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                                style="border-color: var(--color-border); background-color: var(--color-cream-dark);"
                                 readonly
                             />
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Longitude (Auto-filled from address)</label>
+                            <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Longitude (Auto-filled from address)</label>
                             <input 
                                 type="number" 
                                 id="locationLng" 
                                 step="any"
                                 placeholder="Will be filled from address"
-                                class="w-full px-4 py-2 border border-gray-300 rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                                style="border-color: var(--color-border); background-color: var(--color-cream-dark);"
                                 readonly
                             />
                         </div>
                     </div>
-                    <p class="text-sm text-gray-500">Coordinates will be automatically determined from the address. You can also click on the map to set coordinates manually.</p>
+                    <p class="text-sm" style="color: var(--color-charcoal-light);">Coordinates will be automatically determined from the address. You can also click on the map to set coordinates manually.</p>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Address *</label>
+                        <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Address *</label>
                         <input 
                             type="text" 
                             id="locationAddress" 
                             required
                             placeholder="123 Main St, City, MI ZIP"
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                            style="border-color: var(--color-border);"
                         />
                         <button 
                             type="button"
                             id="geocodeAddressBtn"
-                            class="mt-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-sm transition"
+                            class="mt-2 px-4 py-2 rounded text-sm transition"
+                            style="background-color: var(--color-cream-dark); color: var(--color-charcoal); border: 1px solid var(--color-border);"
                         >
                             Find Coordinates from Address
                         </button>
-                        <span id="geocodeStatus" class="ml-2 text-sm text-gray-500"></span>
+                        <span id="geocodeStatus" class="ml-2 text-sm" style="color: var(--color-charcoal-light);"></span>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                            <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Phone *</label>
                             <input 
                                 type="tel" 
                                 id="locationPhone" 
                                 required
                                 placeholder="(313) 555-0100"
-                                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                                style="border-color: var(--color-border);"
                             />
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                            <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Email *</label>
                             <input 
                                 type="email" 
                                 id="locationEmail" 
                                 required
                                 placeholder="info@example.org"
-                                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                                style="border-color: var(--color-border);"
                             />
                         </div>
                     </div>
@@ -298,33 +377,37 @@
                             <input 
                                 type="checkbox" 
                                 id="locationIceCamp"
-                                class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                                class="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                                style="border-color: var(--color-border);"
                             />
-                            <span class="text-sm font-medium text-red-700">⚠️ Flag as ICE Camp</span>
+                            <span class="text-sm font-semibold" style="color: #dc2626;">⚠️ Flag as ICE Camp</span>
                         </label>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Notes (Optional)</label>
+                        <label class="block text-sm font-semibold mb-1" style="color: var(--color-charcoal);">Notes (Optional)</label>
                         <textarea 
                             id="locationNotes" 
                             rows="3"
                             placeholder="Additional information about this organization..."
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 transition"
+                            style="border-color: var(--color-border);"
                         ></textarea>
                     </div>
 
                     <div class="flex gap-4 pt-4">
                         <button 
                             type="submit"
-                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition"
+                            class="flex-1 text-white px-6 py-2 rounded-lg transition font-semibold"
+                            style="background-color: var(--color-green-waterloo);"
                         >
                             Add Location
                         </button>
                         <button 
                             type="button"
                             id="cancelAddLocationBtn"
-                            class="flex-1 bg-gray-200 hover:bg-gray-300 px-6 py-2 rounded transition"
+                            class="flex-1 px-6 py-2 rounded-lg transition font-semibold"
+                            style="background-color: var(--color-cream-dark); color: var(--color-charcoal); border: 1px solid var(--color-border);"
                         >
                             Cancel
                         </button>
