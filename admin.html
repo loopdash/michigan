@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Michigan Justice Fund</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration (load before other scripts) -->
+    <script src="config.js"></script>
+    
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Admin Panel</h1>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition">
+                    View Map
+                </a>
+                <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded transition">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Manage Map Entries</h2>
+                <button 
+                    id="addEntryBtn"
+                    class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded transition"
+                >
+                    + Add New Entry
+                </button>
+            </div>
+
+            <!-- Entries Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="entriesTable" class="bg-white divide-y divide-gray-200">
+                        <!-- Entries will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="entryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-6">Add New Entry</h2>
+            
+            <form id="entryForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Location Name *</label>
+                    <input 
+                        type="text" 
+                        id="entryName" 
+                        required
+                        placeholder="e.g., ICE Sighting - Detroit, Service Provider, etc."
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Service Type (Optional)</label>
+                    <select 
+                        id="entryServiceType" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="">Select a service type (optional)</option>
+                        <option value="Legal Assistance">Legal Assistance</option>
+                        <option value="Community Support">Community Support</option>
+                        <option value="Crisis Response">Crisis Response</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Housing">Housing</option>
+                        <option value="Education">Education</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Latitude (Auto-filled from address)</label>
+                        <input 
+                            type="number" 
+                            id="entryLat" 
+                            step="any"
+                            placeholder="Will be filled from address"
+                            class="w-full px-4 py-2 border border-gray-300 rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            readonly
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Longitude (Auto-filled from address)</label>
+                        <input 
+                            type="number" 
+                            id="entryLng" 
+                            step="any"
+                            placeholder="Will be filled from address"
+                            class="w-full px-4 py-2 border border-gray-300 rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            readonly
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Address *</label>
+                    <input 
+                        type="text" 
+                        id="entryAddress" 
+                        required
+                        placeholder="123 Main St, City, MI ZIP"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button 
+                        type="button"
+                        id="geocodeAddressBtnAdmin"
+                        class="mt-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-sm transition"
+                    >
+                        Find Coordinates from Address
+                    </button>
+                    <span id="geocodeStatusAdmin" class="ml-2 text-sm text-gray-500"></span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                        <input 
+                            type="tel" 
+                            id="entryPhone" 
+                            required
+                            placeholder="(313) 555-0100"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                        <input 
+                            type="email" 
+                            id="entryEmail" 
+                            required
+                            placeholder="info@example.org"
+                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="flex items-center gap-2 mb-4">
+                        <input 
+                            type="checkbox" 
+                            id="entryIceCamp"
+                            class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                        />
+                        <span class="text-sm font-medium text-red-700">⚠️ Flag as ICE Camp</span>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Notes (Optional)</label>
+                    <textarea 
+                        id="entryNotes" 
+                        rows="3"
+                        placeholder="Additional information about this organization..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    ></textarea>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <button 
+                        type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition"
+                    >
+                        Save Entry
+                    </button>
+                    <button 
+                        type="button"
+                        id="cancelBtn"
+                        class="flex-1 bg-gray-200 hover:bg-gray-300 px-6 py-2 rounded transition"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
