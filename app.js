@@ -969,7 +969,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check authentication
     if (!checkAuth()) {
         document.getElementById('passwordModal').classList.remove('hidden');
-        document.getElementById('passwordInput').focus();
+        
+        // Check for password in URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlPassword = urlParams.get('pw');
+        if (urlPassword) {
+            document.getElementById('passwordInput').value = urlPassword;
+            // Automatically submit if password is provided in URL
+            setTimeout(() => {
+                document.getElementById('passwordSubmit').click();
+            }, 100);
+        } else {
+            document.getElementById('passwordInput').focus();
+        }
         
         // Handle password submission
         document.getElementById('passwordSubmit').addEventListener('click', () => {
