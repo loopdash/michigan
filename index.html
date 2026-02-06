@@ -226,31 +226,8 @@
         </div>
     </section>
 
-    <!-- Password Protection Modal -->
-    <div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl border" style="border-color: var(--color-border);">
-            <h2 class="text-2xl font-bold mb-3" style="color: var(--color-charcoal);">Access Required</h2>
-            <p class="mb-6" style="color: var(--color-charcoal-light);">Please enter your password to access the map.</p>
-            <input 
-                type="password" 
-                id="passwordInput" 
-                placeholder="Enter password"
-                class="w-full px-4 py-2.5 border rounded-lg mb-4 focus:outline-none focus:ring-2 transition"
-                style="border-color: var(--color-border);"
-            />
-            <div id="passwordError" class="text-red-600 text-sm mb-4 hidden"></div>
-            <button 
-                id="passwordSubmit"
-                class="w-full text-white px-4 py-2.5 rounded-lg transition font-semibold"
-                style="background-color: var(--color-green-waterloo);"
-            >
-                Access Map
-            </button>
-        </div>
-    </div>
-
     <!-- Main Content -->
-    <div id="mainContent" class="hidden">
+    <div id="mainContent">
         <!-- Map Container -->
         <section class="pb-0">
             <div id="map"></div>

@@ -1,7 +1,5 @@
-// Authentication and Data Management
-const AUTH_PASSWORD = 'ShapeTomorrow'; // Default password - change in production
+// Data Management
 const STORAGE_KEY = 'mjf_map_data';
-const AUTH_KEY = 'mjf_auth';
 
 // Initialize map centered on Michigan
 let map;
@@ -307,26 +305,6 @@ function saveData() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(mapData));
 }
 
-// Check authentication
-function checkAuth() {
-    const auth = localStorage.getItem(AUTH_KEY);
-    return auth === 'authenticated';
-}
-
-// Authenticate user
-function authenticate(password) {
-    if (password === AUTH_PASSWORD) {
-        localStorage.setItem(AUTH_KEY, 'authenticated');
-        return true;
-    }
-    return false;
-}
-
-// Logout
-function logout() {
-    localStorage.removeItem(AUTH_KEY);
-    location.reload();
-}
 
 // Initialize map
 function initMap() {
@@ -966,58 +944,12 @@ async function handleAddLocationSubmit(e) {
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
 
-    // Check authentication
-    if (!checkAuth()) {
-        document.getElementById('passwordModal').classList.remove('hidden');
-        
-        // Check for password in URL query parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlPassword = urlParams.get('pw');
-        if (urlPassword) {
-            document.getElementById('passwordInput').value = urlPassword;
-            // Automatically submit if password is provided in URL
-            setTimeout(() => {
-                document.getElementById('passwordSubmit').click();
-            }, 100);
-        } else {
-            document.getElementById('passwordInput').focus();
-        }
-        
-        // Handle password submission
-        document.getElementById('passwordSubmit').addEventListener('click', () => {
-            const password = document.getElementById('passwordInput').value;
-            const errorDiv = document.getElementById('passwordError');
-            
-            if (authenticate(password)) {
-                document.getElementById('passwordModal').classList.add('hidden');
-                document.getElementById('mainContent').classList.remove('hidden');
-                initMap();
-                populateServiceTypes();
-            } else {
-                errorDiv.textContent = 'Incorrect password. Please try again.';
-                errorDiv.classList.remove('hidden');
-                document.getElementById('passwordInput').value = '';
-            }
-        });
-
-        // Allow Enter key to submit
-        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('passwordSubmit').click();
-            }
-        });
-    } else {
-        // Already authenticated
-        document.getElementById('passwordModal').classList.add('hidden');
-        document.getElementById('mainContent').classList.remove('hidden');
-        document.getElementById('logoutBtn').classList.remove('hidden');
-        document.getElementById('adminLink').classList.remove('hidden');
-        initMap();
-        populateServiceTypes();
-    }
-
-    // Logout button
-    document.getElementById('logoutBtn').addEventListener('click', logout);
+    // Initialize map and UI
+    document.getElementById('mainContent').classList.remove('hidden');
+    document.getElementById('logoutBtn').classList.remove('hidden');
+    document.getElementById('adminLink').classList.remove('hidden');
+    initMap();
+    populateServiceTypes();
 
     // Search and filter
     document.getElementById('searchInput').addEventListener('input', filterMarkers);
